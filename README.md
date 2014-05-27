@@ -1,5 +1,9 @@
 <html>
-	<head><h3>GLBRC-GCAT Documentation</h3></head>
+	<head>
+		<title>
+			<h3>GLBRC-GCAT Documentation</h3>
+		</title>
+	</head>
 	<body>
 
 		<p>This repository tracks the progess of documenting GCAT's code. </p>
