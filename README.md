@@ -16,7 +16,7 @@
 			<li> Read Prefitted And Fit Model Data.odt </li>
 			<li> Read slopeAnalysis.odt and WellObjectAndFuntionality.odt for clarification of fitting model procedure. </li>
 			<li> Finish Fitted.well.odt. </li>
-			<li> Read GoodnessOfFit.odt and ProportionOfThePlateauReached.odt
+			<li> Read GoodnessOfFit.odt and ProportionOfThePlateauReached.odt</li>
 		</ol>
 	</body>
 </html>
