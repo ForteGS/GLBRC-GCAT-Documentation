@@ -1,0 +1,100 @@
+<!--Load YUI-->
+<script type="text/javascript" src="http://yui.yahooapis.com/2.9.0/build/yuiloader/yuiloader-min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.9.0/build/datatable/assets/skins/sam/datatable.css">
+<script type="text/javascript" src="http://yui.yahooapis.com/combo?2.9.0/build/yahoo-dom-event/yahoo-dom-event.js&2.9.0/build/connection/connection-min.js&2.9.0/build/element/element-min.js&2.9.0/build/datasource/datasource-min.js&2.9.0/build/datatable/datatable-min.js"></script>
+
+<div id="mainContent">
+  <h1>Analysis Results</h1>
+  <p>
+    Uploaded file: <%=h @result[:inputfile].to_s %>
+    <% if @result[:layout_file] %>
+      <p>
+      Layout file: <%=h @result[:layout_file].to_s %>
+    <% end %>
+  <p>
+
+  <%= link_to 'New Assay', new_assay_path%>
+  <p>
+    <% @result[:overviewFiles].each do | overview_file | %>
+    <%= link_to image_tag(relative_path(overview_file),  :alt => "Your Submission",
+                          :style => "vertical-align:middle;"), relative_path(@result[:zipfile])%>
+    
+    <% end %>
+    
+    <!--this global relative_path method is defined in application_helper.rb-->
+  </p>
+   <div class="yui-skin-sam"><div id= "basic"></div></div>
+
+    <!--hopefully load the table with minimal explosions-->
+    <script type="text/javascript">
+      
+      //Set width to be 100%
+      $('#container').width('100%');
+
+        YAHOO.util.Event.addListener(window, "load", function() {
+            YAHOO.example.Basic = function() {
+
+
+                var formatUrl = function(elCell, oRecord, oColumn, sData) {
+                    //specify the pdf file and page number to open
+                    elCell.innerHTML = "<a href='<%= File.dirname(@result[:txtFile]) %>/" + oRecord.getData("pdf.file")  + "?#page=" + ( oRecord.getData("page.no")) + "' target='_blank'>" + oRecord.getData("id") +   "</a>"; 
+                       };
+                                    //formatter function to round to 3sf. Returns 'NA' if input is NaN
+                    var roundNum = function(elCell, oRecord, oColumn, sData) {
+                      num = parseFloat(oRecord.getData("spec.growth"));
+                      num = parseFloat(sData);
+                      elCell.innerHTML = isNaN(num) ? 'NA' : num.toPrecision(3);
+                    };       
+
+                    var myColumnDefs = [
+                      {key:"id", sortable:true, resizeable:true, formatter:formatUrl},
+                      {key:"plate", sortable:true, resizeable:true},
+                      {key:"well", sortable:true, resizeable:true},
+                      {key:"media", sortable:true, resizeable:true},
+                      {key:"strain", sortable:true, resizeable:true},
+                      {key:"model", sortable:true, resizeable:true},
+                      {key:"spec.growth", sortable:true, resizeable:true, formatter:roundNum},
+                      {key:"growth", sortable:true, resizeable:true, formatter:roundNum},
+                      {key:"lag.time", sortable:true, resizeable:true, formatter:roundNum},
+                      {key:"inoc.OD", sortable:true, resizeable:true, formatter:roundNum},
+                      {key:"good.fit", sortable:true, resizeable:true, formatter:roundNum},
+                      {key:"empty", sortable:true, resizeable:true},
+                      {key:"asymp", sortable:true, resizeable:true},
+                      {key:"tank", sortable:true, resizeable:true},
+                      {key:"reach", sortable:true, resizeable:true, formatter:roundNum},
+                      {key:"other", sortable:true, resizeable:true},
+                      {key:"pdf.file", sortable:true, resizeable:true},
+                      {key:"page.no", sortable:true, resizeable:true},
+                    ];
+                    
+
+                // source //
+                //specify the datasource file from the cgi//
+                var myDataSource = new YAHOO.util.DataSource("<%=relative_path(@result[:txtFile])%>"); 
+                myDataSource.responseType = YAHOO.util.DataSource.TYPE_TEXT;
+                myDataSource.responseSchema = {
+                    recordDelim: "\n",
+                    fieldDelim: "\t",
+                    fields: [{key:"id", parser:"number"},"plate","well","media","strain","model","spec.growth","growth","lag.time","inoc.OD","good.fit","empty","asymp","tank","reach","other","pdf.file","page.no"]
+                };
+
+
+                // Upgrade note: As of 2.5.0, the second argument is the full type-converted //
+                // response from the live data, and not the unconverted raw response//
+                myDataSource.doBeforeCallback = function(oRequest, oFullResponse, oParsedResponse) {
+                    // Remove the first result (i.e., the headers); //
+                    oParsedResponse.results.shift();
+                    return oParsedResponse;
+                };
+
+                var myDataTable = new YAHOO.widget.DataTable("basic",
+                        myColumnDefs, myDataSource, {caption:"Analysis Results DataTable"});
+
+                return {
+                    oDS: myDataSource,
+                    oDT: myDataTable
+                };
+            }();
+        });
+    </script>
+</div>

@@ -1,0 +1,75 @@
+#Copyright 2012 The Board of Regents of the University of Wisconsin System.
+#Contributors: Jason Shao, James McCurdy, Enhai Xie, Adam G.W. Halstead, 
+#Michael H. Whitney, Nathan DiPiazza, Trey K. Sato and Yury V. Bukhman
+#
+#This file is part of GCAT.
+#
+#GCAT is free software: you can redistribute it and/or modify
+#it under the terms of the GNU Lesser General Public License as published by
+#the Free Software Foundation, either version 3 of the License, or
+#(at your option) any later version.
+#
+#GCAT is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU Lesser General Public License for more details.
+#
+#You should have received a copy of the GNU Lesser General Public License  
+#along with GCAT.  If not, see <http://www.gnu.org/licenses/>.
+
+########################################################################
+#                                                                      #
+#    Set some important constants for analyzing HTS data               #
+#                                                                      #
+########################################################################
+
+# Set global version number (included in outputs)
+global.version.number = 4.0
+# Create a "plate.letters" list of characters with double letters, just in case number of rows exceeds 26. 
+PLATE.LETTERS = paste(rep(c("", LETTERS), each = 26), rep(LETTERS, 26), sep="")
+# Set all the other customizable stuff 
+plate.nrow = 8
+plate.ncol = 12
+input.skip.lines = 0
+time.format = "%Y-%m-%d %H:%M:%S"
+multi.column.headers = c("Plate.ID", "Well", "OD", "Time")
+single.column.headers = c("","A1")
+xlsx.data.headers = c("Plate ID", "Well positions")
+xlsx.layout.sheet = "Plate layout"
+layout.sheet.headers = c("Strain", "Media Definition")
+
+#
+# TO DO: config.file - if provided, parse a configuration file to set constants (maybe not using R?) 
+# otherwise, use the other arguments:
+#
+
+# time.format - specifies the time format. allowed values are "%S", for seconds, "%d", for days, or anything complying with ISO C / POSIX standards; see <strptime>
+# plate.nrow, plate.ncol - specifies the dimensions of the microtiter plate. rows are named by letter, columns by number.   
+
+#   --(note: many of the following fields may be deprecated if a standard format is to be required)
+#   xlsx.data.headers - this is passed to <load.xlsx>. only worksheets matching this are assumed to contain screening data. 
+#   multi.column.headers - for a multi-plate file, specifies the headers of columns containing plate ID, well name, OD and time fields, in that order. 
+#   single.column.headers - for a single-plate file, specifies the headers of columns containing time, first-well OD and last-well OD fields, in that order.  
+#   layout.sheet.name - lists possible names for the sheet specifying plate layout. 
+#   layout.sheet.header - lists column headers for the layout file or sheet. 
+
+
+gcat.set.constants = function(plate.nrow = 8, plate.ncol = 12, input.skip.lines = 0,
+                         time.format = "%Y-%m-%d %H:%M:%S", 
+                         multi.column.headers = c("Plate ID", "Well", "OD", "Time"), single.column.headers = c("","A1"),
+                         xlsx.data.headers = c("Plate ID", "Well positions"), xlsx.layout.sheet = "Plate layout", 
+                         layout.sheet.headers = c("Strain", "Media Definition")){
+                         
+  plate.nrow <<- plate.nrow
+  plate.ncol <<- plate.ncol
+  input.skip.lines <<- input.skip.lines
+  time.format <<- time.format
+  multi.column.headers <<- sub(" ",".",multi.column.headers)
+  single.column.headers <<- sub(" ",".",single.column.headers)
+  xlsx.data.headers <<- sub(" ",".",xlsx.data.headers)
+  xlsx.layout.sheet <<- xlsx.layout.sheet
+  layout.sheet.headers <<-  sub(" ",".",layout.sheet.headers)
+  return()
+  }
+
+  
