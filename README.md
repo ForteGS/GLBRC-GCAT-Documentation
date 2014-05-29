@@ -1,11 +1,6 @@
-<html>
-	<head>
-		<title>
-			<h3>GLBRC-GCAT Documentation</h3>
-		</title>
-	</head>
-	<body>
 
+		<h3>GLBRC-GCAT Documentation</h3>
+	
 		<p>This repository tracks the progess of documenting GCAT's code. </p>
  		<p>The actual implementation for the program and web server is in the trunk folder.</p>
  		<h3> Several words about GCAT </h3>
@@ -23,5 +18,3 @@
 			<li> Finish Fitted.well.odt. </li>
 			<li> Read GoodnessOfFit.odt and ProportionOfThePlateauReached.odt</li>
 		</ol>
-	</body>
-</html>
