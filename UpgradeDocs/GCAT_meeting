@@ -1,0 +1,63 @@
+***   Note for the GCAT meeting: Thu 5/29/2014   ***
+
+Enhancement for GCAT 4. (After done with this it's gonna be GCAT 5)
+
+1. Biphasic curve: 
+               _____
+              /
+             /
+        ____/
+      /
+     /
+    /
+___/
+
+normal curve:
+        _____
+       /
+      /
+     /
+    /
+___/
+
+2. Extract background values for each time point doing the average value of 3 background wells.
+Question: So the original GCAT only extracts background values in each well for time point 0? And we are asked to implement an options that extract background values for each time point?
+
+3. Implement option to subtract an average of control wells at each time point.
+
+4. Accomodate a possibility of having temperature in the second column of the input.
+
+5. Accept FluoStar's input. Currently GCAT has a different input format. Input format migh need to be more flexible. Many people are using different system. <rather complicate> 
+
+6. heatmaps be comparable between each runs. Give the users an option to manually set the heatmap range.
+
+7. Get the area under the curve between an specified range of time. Give the users an option to manually set the range to calculate the area under the curve.
+Question: Evaporation? 
+
+8. Some people don't understand the error messages from R. Get a log error for GCAT so that these errors can be reported to GLBRC. ==> Put supporting messages after printing out the error message.
+
+9. Implement option that graphs like the glucose consumption, ethanol production.
+Example's graph:
+
+g/l
+_____
+     \
+      \
+       \
+        \
+         \
+          \_____
+                 t
+
+
+Priority:
+1. Heatmap
+2. Compute the area of the curve. 
+3. 
+
+
+
+*** DOCUMENTATION for GCAT code ***
+
+Need to clarify what is x and y in the GoodnessOfFit.odt.
+Make things more clear. 
