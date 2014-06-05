@@ -17,4 +17,6 @@
 <li> Read slopeAnalysis.odt and WellObjectAndFuntionality.odt for clarification of fitting model procedure. </li>
 <li> Finish Fitted.well.odt. </li>
 <li> Read GoodnessOfFit.odt and ProportionOfThePlateauReached.odt</li>
+
+The file SumGCATDoc.odt contains the compiled version of all the documentation above. 
 </ol>
